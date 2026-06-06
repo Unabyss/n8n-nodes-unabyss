@@ -1,0 +1,56 @@
+{
+    "name": "n8n-nodes-unabyss",
+    "version": "0.1.0",
+    "description": "n8n community node for Unabyss personal memory - query, store, deep research, integrations, and exports via MCP (OAuth2 or API token)",
+    "license": "MIT",
+    "homepage": "https://unabyss.com",
+    "keywords": [
+        "n8n-community-node-package"
+    ],
+    "author": {
+        "name": "Dominik Bartosik",
+        "email": "dominikbartosik@gmail.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Unabyss/n8n-nodes-unabyss.git"
+    },
+    "engines": {
+        "node": ">=22.22 <23"
+    },
+    "scripts": {
+        "build": "n8n-node build",
+        "build:watch": "tsc --watch",
+        "dev": "node scripts/dev.mjs",
+        "setup:n8n": "node scripts/setup-n8n.mjs",
+        "dev:n8n-cli": "n8n-node dev",
+        "lint": "n8n-node lint",
+        "lint:fix": "n8n-node lint --fix",
+        "release": "n8n-node release",
+        "prepublishOnly": "n8n-node prerelease"
+    },
+    "files": [
+        "dist"
+    ],
+    "n8n": {
+        "n8nNodesApiVersion": 1,
+        "strict": true,
+        "credentials": [
+            "dist/credentials/UnabyssMcpOAuth2Api.credentials.js",
+            "dist/credentials/UnabyssMcpTokenApi.credentials.js"
+        ],
+        "nodes": [
+            "dist/nodes/Unabyss/Unabyss.node.js"
+        ]
+    },
+    "devDependencies": {
+        "@n8n/node-cli": "*",
+        "eslint": "9.32.0",
+        "prettier": "3.6.2",
+        "release-it": "^19.0.4",
+        "typescript": "5.9.2"
+    },
+    "peerDependencies": {
+        "n8n-workflow": "*"
+    }
+}

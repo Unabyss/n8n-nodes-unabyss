@@ -1,0 +1,19 @@
+{
+	"node": "n8n-nodes-unabyss",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Development", "AI"],
+	"alias": ["Unabyss", "memory", "MCP", "personal memory", "agentic query"],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://unabyss.com"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://github.com/Unabyss/n8n-nodes-unabyss"
+			}
+		]
+	}
+}
