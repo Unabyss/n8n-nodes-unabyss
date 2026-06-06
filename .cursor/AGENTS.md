@@ -10,7 +10,16 @@ Standalone npm community node for Unabyss MCP (`https://mcp.unabyss.com`).
 | [n8n-node-commit](skills/n8n-node-commit/SKILL.md) | Commit and push changes on this repo |
 | [n8n-node-release](skills/n8n-node-release/SKILL.md) | Bump version, tag, and publish to npm via CI |
 
-Typical order: implement → **docs** → commit → release (when shipping).
+Typical order: implement on `develop` → **docs** → commit to `develop` → release (merge to `main`, tag, npm).
+
+## Branching
+
+| Branch | Purpose |
+|--------|---------|
+| `develop` | Default integration branch — commit here |
+| `main` | npm releases only — updated via `n8n-node-release` |
+
+One-time if `develop` is missing: `git checkout -b develop && git push -u origin develop` (from current `main`).
 
 ## Toolchain
 
@@ -22,7 +31,8 @@ Typical order: implement → **docs** → commit → release (when shipping).
 ## Repo
 
 - Git remote: `https://github.com/Unabyss/n8n-nodes-unabyss.git`
-- Default branch: `main`
+- Integration branch: `develop` (commits)
+- Release branch: `main` (npm)
 - Monorepo stub (pointer only): `Unabyss/unabyss` → `integration-apps/n8n-nodes-unabyss/`
 
 ## Node authoring

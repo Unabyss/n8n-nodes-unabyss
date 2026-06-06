@@ -5,7 +5,9 @@ description: Update README, CHANGELOG, package metadata, and in-node documentati
 
 # n8n-node Docs
 
-Keep user-facing documentation in sync for the standalone `n8n-nodes-unabyss` package. Run after code changes and **before** [n8n-node-commit](../n8n-node-commit/SKILL.md) or [n8n-node-release](../n8n-node-release/SKILL.md).
+Keep user-facing documentation in sync for the standalone `n8n-nodes-unabyss` package. Run after code changes on `develop` and **before** [n8n-node-commit](../n8n-node-commit/SKILL.md) or [n8n-node-release](../n8n-node-release/SKILL.md).
+
+Commits go to `develop`; releases merge `develop` → `main` and publish to npm from `main` only.
 
 This repo has no `docs/` tree — documentation lives in the package surfaces below.
 

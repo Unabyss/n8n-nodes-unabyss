@@ -32,6 +32,21 @@ n8n community node for [Unabyss](https://unabyss.com) personal memory via the MC
 
 If Agentic Query returns `status: pending`, add a Wait node (`poll_after_seconds`), then Agentic Query Read with the returned `query_id`. Repeat until `status` is `completed` or `failed`.
 
+## Repository branches
+
+| Branch | Purpose |
+| --- | --- |
+| `develop` | Day-to-day development — open PRs and land commits here |
+| `main` | npm releases only — updated when shipping a new package version |
+
+Clone and work on `develop`:
+
+```bash
+git clone https://github.com/Unabyss/n8n-nodes-unabyss.git
+cd n8n-nodes-unabyss
+git checkout develop
+```
+
 ## Local development
 
 **Node version:** n8n 2.23 requires **Node 22 LTS** (`>=22.22 <23`). Node 25 breaks native module installs.
@@ -39,8 +54,6 @@ If Agentic Query returns `status: pending`, add a Wait node (`poll_after_seconds
 ```bash
 nvm install 22
 nvm use 22
-git clone https://github.com/Unabyss/n8n-nodes-unabyss.git
-cd n8n-nodes-unabyss
 pnpm install
 pnpm run setup:n8n   # one-time: downloads n8n into ~/.n8n-node-cli/runner
 pnpm run dev
