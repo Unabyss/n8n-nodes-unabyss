@@ -1,6 +1,6 @@
 ---
 name: n8n-node-commit
-description: Stage n8n-nodes-unabyss changes, run lint and build as gates, create a single commit, and push. Use when the user asks to commit, commit and push, or persist changes in the standalone n8n-nodes-unabyss repository. Does not publish to npm (use n8n-node-release for that).
+description: Stage n8n-nodes-unabyss changes on develop (or a feature branch), run lint and build as gates, create a single commit, and push. Use when the user asks to commit, commit and push, or persist changes. Never commits to main (use n8n-node-release for releases to main/npm).
 ---
 
 # n8n-node Commit
@@ -9,22 +9,42 @@ Stage changes, gate with `pnpm run lint` and `pnpm run build`, create one commit
 
 Repository: `https://github.com/Unabyss/n8n-nodes-unabyss.git` (standalone package at repo root).
 
+## Branching Model
+
+| Branch | Role |
+|--------|------|
+| `develop` | Integration branch — **all day-to-day commits land here** |
+| `main` | Release branch — matches npm; **no direct feature commits** |
+| `feat/<name>`, `fix/<name>` | Optional short-lived branches; merge to `develop` via PR |
+
+`main` is updated only through [n8n-node-release](../n8n-node-release/SKILL.md) (merge `develop` → `main`, then version tag + npm publish).
+
 ## When to Use
 
 - User says "commit", "commit and push", or equivalent in this repo.
-- Initial import or ongoing node/credential/README/workflow edits.
+- Ongoing node/credential/README/workflow edits on `develop` or a feature branch.
 
 ## When NOT to Use
 
 - Publishing a version to npm → use [n8n-node-release](../n8n-node-release/SKILL.md).
 - User-visible changes without doc updates → run [n8n-node-docs](../n8n-node-docs/SKILL.md) first.
 - Changes belong in the Unabyss monorepo (`Unabyss/unabyss`) → work there instead.
+- Current branch is `main` → STOP. Switch to `develop` or use the release skill.
 
 ## Before You Start
 
 1. Confirm cwd is the n8n repo root (contains `package.json` with `"name": "n8n-nodes-unabyss"`).
 2. Run `git status`. If the working tree is clean, report and exit.
-3. Confirm Node 22 is active: `node -v` should be `v22.x`. If not, run `nvm use 22` (or equivalent) before lint/build.
+3. Confirm current branch:
+   - **Allowed:** `develop`, or `feat/*` / `fix/*`.
+   - **Forbidden:** `main` — STOP unless the user explicitly requests a release/hotfix flow (then use release skill).
+4. If `develop` does not exist locally but exists on remote: `git checkout develop`.
+5. If `develop` does not exist at all: create from `main` and push:
+   ```bash
+   git checkout -b develop
+   git push -u origin develop
+   ```
+6. Confirm Node 22 is active: `node -v` should be `v22.x`. If not, run `nvm use 22` before lint/build.
 
 ## Phase 1: Staging
 
@@ -42,7 +62,7 @@ Repository: `https://github.com/Unabyss/n8n-nodes-unabyss.git` (standalone packa
    - `dist/` (gitignored build output)
    - `.env`, `.npmrc` with tokens, secrets, API keys
    - Editor-only junk (`.DS_Store`)
-5. Use `git add` on the determined paths. For a full initial import, `git add -A` minus ignored paths is acceptable after verifying `git status` shows no secrets.
+5. Use `git add` on the determined paths.
 
 **STOP** if any file might contain credentials or npm tokens. Never guess.
 
@@ -76,22 +96,6 @@ pnpm run build
 
 **Types:** `feat`, `fix`, `docs`, `chore`, `build`, `refactor`
 
-**Examples:**
-
-```
-feat(n8n): add Unabyss MCP node with OAuth2 and token auth
-
-Initial community node extracted from the Unabyss monorepo. Covers all
-nine MCP tools with OAuth2 DCR and static token fallback.
-
-- Add Unabyss node, credentials, and local dev scripts.
-- Wire publish workflow and package metadata for npm.
-```
-
-```
-docs(n8n): expand node notices and README links
-```
-
 3. Commit with a HEREDOC:
 
 ```bash
@@ -104,21 +108,17 @@ EOF
 
 ## Phase 4: Push
 
-1. If no upstream: `git push -u origin HEAD`
-2. Else: `git push`
+1. On `develop`: push to `origin develop` (`git push` or `git push -u origin develop` if no upstream).
+2. On `feat/*` or `fix/*`: `git push -u origin HEAD` (user opens PR to `develop` separately if needed).
 3. On failure: STOP. No `--force` unless the user explicitly requests it.
-
-## Branching
-
-- Default branch is `main`. Direct commits to `main` are allowed in this small package repo (unlike the Unabyss monorepo).
-- Optional: `feat/<name>` or `fix/<name>` branches for larger changes; still push and open a PR to `main` if the user asks.
 
 ## Completion Summary
 
-Report: short SHA, subject line, files staged (grouped), lint/build result, push result.
+Report: branch name, short SHA, subject line, files staged (grouped), lint/build result, push result.
 
 ## Invariants
 
+- Never commit directly to `main` from this skill.
 - Never stage `node_modules/`, `dist/`, or secret files.
 - Never commit if lint or build fails.
 - Never `git push --force` without explicit user instruction.

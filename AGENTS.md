@@ -19,8 +19,8 @@ be approved
 Commit/push and npm release workflows live in [.cursor/skills/](.cursor/skills/):
 
 - `n8n-node-docs` — README, CHANGELOG, node/credential doc links
-- `n8n-node-commit` — lint, build, commit, push
-- `n8n-node-release` — version bump, tag, npm publish via CI
+- `n8n-node-commit` — lint, build, commit, push to `develop`
+- `n8n-node-release` — merge `develop` → `main`, version bump, tag, npm publish via CI
 
 See [.cursor/AGENTS.md](.cursor/AGENTS.md) for repo-specific agent notes.
 
