@@ -19,4 +19,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Changed
 
+- Bump `@n8n/node-cli` to 0.54.4 and add `pnpm.overrides` for vulnerable transitive dev dependencies (axios, follow-redirects, handlebars, source-map-js, brace-expansion, form-data, qs, undici, protobufjs, js-yaml, ip-address, zod, and others) to resolve Dependabot alerts
+- Node codex category `AI` replaced with `Productivity` (no longer an allowed community node category)
 - README documents `develop` / `main` branching for contributors

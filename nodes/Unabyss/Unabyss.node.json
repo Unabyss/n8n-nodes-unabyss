@@ -2,7 +2,7 @@
 	"node": "n8n-nodes-unabyss",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
-	"categories": ["Development", "AI"],
+	"categories": ["Development", "Productivity"],
 	"alias": ["Unabyss", "memory", "MCP", "personal memory", "agentic query"],
 	"resources": {
 		"credentialDocumentation": [
